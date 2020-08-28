@@ -9,7 +9,8 @@ function BarChart({ width, height, data }) {
 			.select(ref.current)
 			.attr('width', width)
 			.attr('height', height)
-			.style('border', '1px solid black');
+			.style('border', '1px solid red') //차트 테두리 스타일
+			.style('border-radius', '16px');
 	}, []);
 
 	useEffect(() => {
@@ -35,9 +36,9 @@ function BarChart({ width, height, data }) {
 			.append('rect')
 			.attr('x', (d, i) => i * 45)
 			.attr('y', d => height)
-			.attr('width', 40)
+			.attr('width', 10) //차트 가로 폭
 			.attr('height', 0)
-			.attr('fill', 'orange')
+			.attr('fill', 'blue')
 			.transition()
 			.duration(300)
 			.attr('height', d => yScale(d))
