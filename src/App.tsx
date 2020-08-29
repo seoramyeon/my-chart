@@ -1,31 +1,30 @@
-import React, { useEffect, useState, useRef } from 'react';
-import './App.css';
-import BarChart from './Chart1';
-
-const datas = [
-	[10, 30, 40, 20],
-	[10, 40, 30, 20, 50, 10],
-	[60, 30, 40, 20, 30]
-];
-var i = 0;
+import React, { useEffect, useRef } from 'react';
+import { select, selectAll } from 'd3-selection';
 
 const App: React.FC = () => {
 	const svgRef = useRef<SVGSVGElement | null>(null);
 
-	// const [data, setData] = useState([]);
-
-	// useEffect(() => {
-	// 	changeData();
-	// }, []);
-
-	// const changeData = () => {
-	// 	setData(datas[i++]);
-	// 	if (i === datas.length) i = 0;
-	// };
+	useEffect(() => {
+		console.log(select(svgRef.current));
+		// select(svgRef.current)
+		// 	.append('rect')
+		// 	.attr('width', 100)
+		// 	.attr('height', 100)
+		//   .attr('fill', 'red')
+		selectAll('rect')
+			.attr('width', 100)
+			.attr('height', 100)
+			.attr('fill', 'blue')
+			.attr('x', (_, i) => i * 100);
+	});
 
 	return (
 		<div>
-			<svg ref={svgRef} />
+			<svg ref={svgRef}>
+				<rect />
+				<rect />
+				<rect />
+			</svg>
 		</div>
 	);
 };
