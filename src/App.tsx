@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { select, Selection, selectAll } from 'd3-selection';
+import { select, Selection,  } from 'd3-selection';
 
 const data = [
 	{
@@ -56,20 +56,7 @@ const App: React.FC = () => {
 		}
 	}, [selection]);
 
-	/*
-	useEffect(() => {
-		console.log(select(svgRef.current));
-		// select(svgRef.current)
-		// 	.append('rect')
-		// 	.attr('width', 100)
-		// 	.attr('height', 100)
-		//   .attr('fill', 'red')
-		selectAll('rect')
-			.attr('width', 100)
-			.attr('height', 100)
-			.attr('fill', 'blue')
-			.attr('x', (_, i) => i * 100);
-	}); */
+
 
 	return (
 		<div>
