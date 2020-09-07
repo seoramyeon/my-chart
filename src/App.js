@@ -1,46 +1,38 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from 'react';
 import './App.css';
+import { select } from 'd3';
 
+//useRef: DOM 을 직접 선택해야 하는 상황이 발생 할 때도 있습니다.
+//ex)특정 엘리먼트의 크기를 가져와야 한다던지,
+//스크롤바 위치를 가져오거나 설정해야된다던지, 또는 포커스를 설정해줘야된다던지 등
 
-const App= () => {
+const App = () => {
+  const [data, setData] = useState([25, 30, 45, 60, 20, 80]);
   const svgRef = useRef();
 
   useEffect(() => {
-    console.log(svgRef)
-  }, [])
-  // const dummy_data = [
-  //   { id: 'd1', value: 10, region: 'USA' },
-  //   { id: 'd2', value: 11, region: 'Korea' },
-  //   { id: 'd3', value: 12, region: 'China' },
-  //   { id: 'd4', value: 13, region: 'Japan' },
-  //   { id: 'd5', value: 14, region: 'India' },
-  // ];
-  
-  // const container = d3
-  //   .select('div')
-  //   .classed('container', true)
-  //   .style('border', '1px solid red');
-  
-  // container
-  //   .selectAll('.bar')
-  //   .data(dummy_data)
-  //   .enter()
-  //   .append('div')
-  //   .classed('bar', true)
-  //   .style('width', '50px')
-  //   .style('height', (data) => data.value * 5 + 'px');
-
-
-
-  
+    const svg = select(svgRef.current);
+    svg
+      .selectAll('circle')
+      .data(data)
+      .join('circle')
+      .attr('r', (value) => value)
+      .attr('cx', (value) => value * 2)
+      .attr('cy', (value) => value * 2)
+      .attr('stroke', 'pink');
+  }, [data]);
 
   return (
-    <div>
-        Hello! my Chart!
-      {/* 기본 너비는 300임. 500으로 확장필요 */}
-      <svg ref={svgRef} width={500} height={300} />
-     
-    </div>
+    <React.Fragment>
+      <svg ref={svgRef} width={800} height={500}></svg>
+      <br />
+      <button onClick={() => setData(data.map((value) => value + 5))}>
+        Update data
+      </button>
+      <button onClick={() => setData(data.filter((value) => value < 55))}>
+        Filter data
+      </button>
+    </React.Fragment>
   );
 };
 
