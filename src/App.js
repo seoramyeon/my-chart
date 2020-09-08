@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import './App.css';
-import { select } from 'd3';
+import { select , line, curveCardinal} from 'd3';
 
 //useRef: DOM 을 직접 선택해야 하는 상황이 발생 할 때도 있습니다.
 //ex)특정 엘리먼트의 크기를 가져와야 한다던지,
@@ -12,19 +12,31 @@ const App = () => {
 
   useEffect(() => {
     const svg = select(svgRef.current);
+    const myLine = line()
+      .x((value, index) => index * 50)
+      .y(value => 150 - value)
+      .curve(curveCardinal)
+    // svg
+    //   .selectAll('circle')
+    //   .data(data)
+    //   .join('circle')
+    //   .attr('r', (value) => value)
+    //   .attr('cx', (value) => value * 2)
+    //   .attr('cy', (value) => value * 2)
+    //   .attr('stroke', 'pink');
+
     svg
-      .selectAll('circle')
-      .data(data)
-      .join('circle')
-      .attr('r', (value) => value)
-      .attr('cx', (value) => value * 2)
-      .attr('cy', (value) => value * 2)
+      .selectAll('path')
+      .data([data])
+      .join('path')
+      .attr('d', (value) => myLine(value))
+      .attr('fill', 'none')
       .attr('stroke', 'pink');
   }, [data]);
 
   return (
     <React.Fragment>
-      <svg ref={svgRef} width={800} height={500}></svg>
+      <svg ref={svgRef} width={600} height={400}></svg>
       <br />
       <button onClick={() => setData(data.map((value) => value + 5))}>
         Update data
