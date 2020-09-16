@@ -1,24 +1,24 @@
 import React, { useRef, useEffect } from 'react';
 import { select } from 'd3';
 import { geoPath, geoMercator } from 'd3-geo';
-import useResizeObserver from 'resize-observer-polyfill';
+import ResizeObserver from 'resize-observer-polyfill';
+// import { ResizeObserver } from '@juggle/resize-observer';
 // import { useResizeObserver } from "./useResizeObserver";
-
 
 //render a map
 const GeoChart = ({ data, property }) => {
   const svgRef = useRef();
   const wrapperRef = useRef();
-  // const dimensions = new useResizeObserver(wrapperRef);
+  // const dimensions = new ResizeObserver(wrapperRef);
 
   //will be called initially and every data change
   useEffect(() => {
     const svg = select(svgRef.current);
 
     // const { width, height } =
-    //   dimensions || wrapperRef.current.getBoundingClientRect();
+      // dimensions || wrapperRef.current.getBoundingClientRect();
 
-    const projection = geoMercator().fitSize([400, 300], data);
+    const projection = geoMercator().fitSize([600, 400], data);
     const pathGenerator = geoPath().projection(projection);
 
     svg
